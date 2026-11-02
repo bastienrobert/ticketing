@@ -1,7 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "server",
+  "name": "ticketing-server",
   "compatibility_date": "2025-08-03",
   "main": "./src/index.tsx",
-  "d1_databases": [{ "binding": "DB", "database_name": "ticketing" }],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ticketing",
+      "database_id": "69472bb7-1411-4c3c-940a-3833b7462b67",
+    },
+  ],
 }
