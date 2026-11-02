@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "name": "ticketing",
+  "version": "0.0.0",
+  "author": "Bastien Robert <bastien@plutot.cool>",
+  "type": "module",
+  "prettier": "@plutotcool/prettier-config",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.15.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.15.0",
+  "devDependencies": {
+    "turbo": "^2.11.10"
+  },
+  "dependencies": {
+    "@plutotcool/prettier-config": "^1.2.0",
+    "prettier": "^3.9.10"
+  }
+}
