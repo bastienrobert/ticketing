@@ -12,6 +12,10 @@ export function createAuth(env: CloudflareBindings, request: Request) {
     // a request only reaches the Worker through its own domains, so its origin is the Worker's URL
     baseURL: new URL(request.url).origin,
     secret: env.BETTER_AUTH_SECRET,
+    advanced: {
+      ipAddress: { ipAddressHeaders: ['cf-connecting-ip'] },
+    },
+    rateLimit: { storage: 'database' },
     emailAndPassword: { enabled: true },
     // the app's scheme from app.json; the Expo plugin also trusts Expo Go (`exp://`) in development
     trustedOrigins: ['ticketing://'],
