@@ -42,6 +42,19 @@ export default function TabsLayout() {
           </NativeTabs.Trigger.Badge>
         )}
       </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="account">
+        <NativeTabs.Trigger.Icon
+          sf={{
+            default: 'person.crop.circle',
+            selected: 'person.crop.circle.fill',
+          }}
+          md="account_circle"
+        />
+        <NativeTabs.Trigger.Label>
+          {i18n.t('account.title')}
+        </NativeTabs.Trigger.Label>
+      </NativeTabs.Trigger>
     </NativeTabs>
   )
 }

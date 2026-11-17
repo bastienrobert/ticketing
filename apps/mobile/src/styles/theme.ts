@@ -6,4 +6,5 @@ export const COLORS = Object.freeze({
   border: '#dedee3',
   control: '#e9e9ed',
   accent: '#0066cc',
+  error: '#d70015',
 })

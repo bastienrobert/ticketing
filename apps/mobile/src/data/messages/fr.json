@@ -71,5 +71,21 @@
       "description": "Vérifiez votre connexion, puis réessayez.",
       "button": "Réessayer"
     }
+  },
+  "account": {
+    "title": "Compte",
+    "subtitle": "Connectez-vous ou créez un compte avec votre adresse e-mail.",
+    "signed_in": "Votre session est ouverte sur cet appareil.",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "sign_in": "Se connecter",
+    "sign_up": "Créer un compte",
+    "sign_out": "Se déconnecter",
+    "error": {
+      "invalid_credentials": "Saisissez une adresse e-mail valide et un mot de passe d’au moins 8 caractères.",
+      "wrong_credentials": "Adresse e-mail ou mot de passe incorrect.",
+      "email_taken": "Un compte existe déjà avec cette adresse e-mail.",
+      "network": "Connexion impossible. Vérifiez votre réseau, puis réessayez."
+    }
   }
 }
