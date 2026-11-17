@@ -15,6 +15,8 @@ export type CatalogueMode = 'all' | 'favorites'
 export interface CatalogueProps {
   mode: CatalogueMode
   page: Promise<{ events: EventCardParams[]; categories: string[] } | null>
+  refreshing: boolean
+  onRefresh: () => void
 }
 
 function normalizeSearch(value: string): string {
@@ -25,7 +27,12 @@ function normalizeSearch(value: string): string {
     .toLocaleLowerCase('fr')
 }
 
-export function Catalogue({ mode, page }: CatalogueProps) {
+export function Catalogue({
+  mode,
+  page,
+  refreshing,
+  onRefresh,
+}: CatalogueProps) {
   const router = useRouter()
   const { favoriteIds, toggleFavorite } = useFavoritesContext()
   const { events, categories } = use(page) ?? { events: [], categories: [] }
@@ -69,6 +76,8 @@ export function Catalogue({ mode, page }: CatalogueProps) {
       events={filtered}
       totalCount={events.length}
       favoriteIds={favoriteIds}
+      refreshing={refreshing}
+      onRefresh={onRefresh}
       onEventPress={onEventPress}
       onFavoriteToggle={toggleFavorite}
       onFiltersReset={onFiltersReset}

@@ -17,11 +17,16 @@ export interface CataloguePageData {
 }
 
 export default function CataloguePage() {
-  const page = useRequest(getCataloguePage)
+  const [refreshing, page, refresh] = useRequest(getCataloguePage)
 
   return (
     <Suspense fallback={<CatalogueLoading mode="all" />}>
-      <Catalogue mode="all" page={page} />
+      <Catalogue
+        mode="all"
+        page={page}
+        refreshing={refreshing}
+        onRefresh={refresh}
+      />
     </Suspense>
   )
 }

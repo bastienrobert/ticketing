@@ -10,11 +10,16 @@ import { getCataloguePage } from '~/data/get-catalogue-page'
 import { i18n } from '~/lib/i18n'
 
 export default function FavoritesPage() {
-  const page = useRequest(getCataloguePage)
+  const [refreshing, page, refresh] = useRequest(getCataloguePage)
 
   return (
     <Suspense fallback={<CatalogueLoading mode="favorites" />}>
-      <Catalogue mode="favorites" page={page} />
+      <Catalogue
+        mode="favorites"
+        page={page}
+        refreshing={refreshing}
+        onRefresh={refresh}
+      />
     </Suspense>
   )
 }

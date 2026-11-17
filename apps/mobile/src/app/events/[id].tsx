@@ -32,7 +32,7 @@ export interface EventPageData {
 
 export default function EventPage() {
   const { id } = useLocalSearchParams<'/events/[id]'>()
-  const page = useRequest((signal) => getEventPage(Number(id), signal))
+  const [, page] = useRequest((signal) => getEventPage(Number(id), signal))
 
   return (
     <Suspense fallback={<EventPageLoading />}>

@@ -23,7 +23,9 @@ export interface CatalogueResultsProps {
   events: EventCardParams[]
   totalCount: number
   favoriteIds: number[]
+  refreshing: boolean
   children: ReactNode
+  onRefresh: () => void
   onEventPress: (eventId: number) => void
   onFavoriteToggle: (eventId: number) => void
   onFiltersReset: () => void
@@ -35,7 +37,9 @@ export function CatalogueResults({
   events,
   totalCount,
   favoriteIds,
+  refreshing,
   children,
+  onRefresh,
   onEventPress,
   onFavoriteToggle,
   onFiltersReset,
@@ -124,9 +128,11 @@ export function CatalogueResults({
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
+        refreshing={refreshing}
         contentContainerStyle={STYLES.content}
         keyExtractor={(event) => String(event.id)}
         renderItem={renderEvent}
+        onRefresh={onRefresh}
       />
     </SafeAreaView>
   )
