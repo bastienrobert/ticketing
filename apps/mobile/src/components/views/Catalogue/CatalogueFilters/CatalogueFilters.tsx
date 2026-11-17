@@ -46,6 +46,7 @@ export function CatalogueFilters({
         horizontal
         keyboardShouldPersistTaps="handled"
         showsHorizontalScrollIndicator={false}
+        style={STYLES.carousel}
         contentContainerStyle={STYLES.categories}>
         <CatalogueFiltersCategory
           label={i18n.t('catalogue.all_categories')}
@@ -91,8 +92,12 @@ const STYLES = StyleSheet.create({
     lineHeight: 24,
   },
 
+  // bleeds through the list padding so the chips scroll to the screen edges
+  carousel: { marginHorizontal: -20 },
+
   categories: {
     gap: 8,
     paddingVertical: 2,
+    paddingHorizontal: 20,
   },
 })

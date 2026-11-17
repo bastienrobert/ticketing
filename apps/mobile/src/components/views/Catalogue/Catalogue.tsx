@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { use, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { useRouter } from 'expo-router'
 
@@ -14,8 +14,7 @@ export type CatalogueMode = 'all' | 'favorites'
 
 export interface CatalogueProps {
   mode: CatalogueMode
-  events: EventCardParams[]
-  categories: string[]
+  page: Promise<{ events: EventCardParams[]; categories: string[] } | null>
 }
 
 function normalizeSearch(value: string): string {
@@ -26,9 +25,10 @@ function normalizeSearch(value: string): string {
     .toLocaleLowerCase('fr')
 }
 
-export function Catalogue({ mode, events, categories }: CatalogueProps) {
+export function Catalogue({ mode, page }: CatalogueProps) {
   const router = useRouter()
   const { favoriteIds, toggleFavorite } = useFavoritesContext()
+  const { events, categories } = use(page) ?? { events: [], categories: [] }
 
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<string | null>(null)

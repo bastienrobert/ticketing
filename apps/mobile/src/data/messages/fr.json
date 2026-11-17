@@ -19,6 +19,12 @@
       "one": "%{count} événement",
       "other": "%{count} événements"
     },
+    "loading": "Chargement des événements",
+    "error": {
+      "title": "Impossible de charger les événements.",
+      "description": "Vérifiez votre connexion, puis réessayez.",
+      "button": "Réessayer"
+    },
     "empty": {
       "title": "La programmation arrive bientôt.",
       "description": "Revenez découvrir les prochains événements."
@@ -49,13 +55,21 @@
     "label": "%{category}. %{title}. %{venue}. %{date}.",
     "open_hint": "Afficher les informations de l’événement",
     "close": "Fermer la fiche de l’événement",
+    "loading": "Chargement de l’événement",
     "date": "Date et heure",
     "venue": "Lieu",
     "price": "Tarif",
     "free": "Gratuit",
+    "price_from": "À partir de %{price}",
+    "price_unknown": "Non communiqué",
     "not_found": {
       "title": "Événement introuvable.",
       "description": "Cet événement n’existe pas ou n’est plus disponible."
+    },
+    "error": {
+      "title": "Impossible de charger l’événement.",
+      "description": "Vérifiez votre connexion, puis réessayez.",
+      "button": "Réessayer"
     }
   }
 }

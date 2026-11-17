@@ -1,16 +1,20 @@
 import { eventAdapter } from './adapters/events.adapters'
-import { MOCK_EVENTS } from './mocks/events'
+import { fetchApi } from '~/lib/api'
 
 import type { CataloguePageData } from '~/app/(tabs)'
 
-/** Assemble the local mock catalogue without any asynchronous loading. */
-export function getCataloguePage(): CataloguePageData {
-  const sorted = [...MOCK_EVENTS].sort((first, second) => {
-    return Date.parse(first.startsAt) - Date.parse(second.startsAt)
-  })
-  const categories = Array.from(
-    new Set(sorted.map((event) => event.category)),
-  ).sort((first, second) => first.localeCompare(second, 'fr'))
+/** Load the catalogue, already sorted by start date by the server; `null` when the payload is unusable. */
+export async function getCataloguePage(
+  signal: AbortSignal,
+): Promise<CataloguePageData | null> {
+  const events = await fetchApi('/events', signal)
 
-  return { events: sorted.map(eventAdapter), categories }
+  if (!Array.isArray(events)) return null
+
+  return {
+    events: events.map(eventAdapter),
+    categories: [
+      ...new Set<string>(events.map((event) => event.category)),
+    ].sort(new Intl.Collator('fr').compare),
+  }
 }

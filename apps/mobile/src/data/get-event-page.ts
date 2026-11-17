@@ -1,11 +1,18 @@
 import { eventAdapter } from './adapters/events.adapters'
-import { MOCK_EVENTS } from './mocks/events'
+import { fetchApi } from '~/lib/api'
 
 import type { EventPageData } from '~/app/events/[id]'
 
-/** Find one mock event for its sheet; `null` when the id is unknown. */
-export function getEventPage(eventId: number): EventPageData | null {
-  const event = MOCK_EVENTS.find((candidate) => candidate.id === eventId)
+/** Find one event for its sheet; `null` when the id is unknown or the payload unusable. */
+export async function getEventPage(
+  eventId: number,
+  signal: AbortSignal,
+): Promise<EventPageData | null> {
+  const events = await fetchApi('/events', signal)
+
+  if (!Array.isArray(events)) return null
+
+  const event = events.find((candidate) => candidate.id === eventId)
 
   if (!event) return null
 

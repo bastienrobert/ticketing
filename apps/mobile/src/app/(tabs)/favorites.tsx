@@ -1,9 +1,30 @@
-import { Catalogue } from '~/components/views/Catalogue'
+import { Suspense } from 'react'
+import type { ErrorBoundaryProps } from 'expo-router'
+
+import { Catalogue, CatalogueLoading } from '~/components/views/Catalogue'
+import { Message } from '~/components/views/Message'
+
+import { useRequest } from '~/hooks/useRequest'
 
 import { getCataloguePage } from '~/data/get-catalogue-page'
+import { i18n } from '~/lib/i18n'
 
 export default function FavoritesPage() {
-  const { events, categories } = getCataloguePage()
+  const page = useRequest(getCataloguePage)
 
-  return <Catalogue mode="favorites" events={events} categories={categories} />
+  return (
+    <Suspense fallback={<CatalogueLoading mode="favorites" />}>
+      <Catalogue mode="favorites" page={page} />
+    </Suspense>
+  )
+}
+
+export function ErrorBoundary({ retry }: ErrorBoundaryProps) {
+  return (
+    <Message
+      title={i18n.t('catalogue.error.title')}
+      description={i18n.t('catalogue.error.description')}
+      button={{ label: i18n.t('catalogue.error.button'), onPress: retry }}
+    />
+  )
 }
