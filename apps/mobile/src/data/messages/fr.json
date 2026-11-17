@@ -1,0 +1,56 @@
+{
+  "navigation": {
+    "brand": "Ticketing"
+  },
+  "catalogue": {
+    "title": "Événements",
+    "subtitle": "Trouvez votre prochaine sortie.",
+    "section_title": "À découvrir",
+    "search": "Rechercher un événement",
+    "all_categories": "Toutes",
+    "category_label": "Catégorie : %{category}",
+    "event_count": {
+      "zero": "%{count} événements",
+      "one": "%{count} événement",
+      "other": "%{count} événements"
+    },
+    "empty": {
+      "title": "La programmation arrive bientôt.",
+      "description": "Revenez découvrir les prochains événements."
+    },
+    "no_results": {
+      "title": "Aucun événement trouvé.",
+      "description": "Essayez une autre recherche ou une autre catégorie.",
+      "button": "Réinitialiser les filtres"
+    }
+  },
+  "favorites": {
+    "title": "Favoris",
+    "section_title": "Vos favoris",
+    "count_label": {
+      "zero": "Favoris, %{count} événements",
+      "one": "Favoris, %{count} événement",
+      "other": "Favoris, %{count} événements"
+    },
+    "add_label": "Ajouter aux favoris : %{title}",
+    "remove_label": "Retirer des favoris : %{title}",
+    "empty": {
+      "title": "Vous n’avez pas encore de favoris.",
+      "description": "Touchez le cœur d’un événement pour le retrouver ici.",
+      "button": "Explorer les événements"
+    }
+  },
+  "event": {
+    "label": "%{category}. %{title}. %{venue}. %{date}.",
+    "open_hint": "Afficher les informations de l’événement",
+    "close": "Fermer la fiche de l’événement",
+    "date": "Date et heure",
+    "venue": "Lieu",
+    "price": "Tarif",
+    "free": "Gratuit",
+    "not_found": {
+      "title": "Événement introuvable.",
+      "description": "Cet événement n’existe pas ou n’est plus disponible."
+    }
+  }
+}

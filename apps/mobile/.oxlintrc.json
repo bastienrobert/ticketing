@@ -1,0 +1,86 @@
+{
+  "plugins": ["react", "typescript", "oxc"],
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "error",
+    "react/only-export-components": "error"
+  },
+  "overrides": [
+    {
+      "files": ["src/app/**/_layout.tsx"],
+      "rules": {
+        "react/only-export-components": [
+          "error",
+          {
+            "allowExportNames": ["unstable_settings"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/contexts/FavoritesContext.tsx"],
+      "rules": {
+        "react/only-export-components": [
+          "error",
+          {
+            "allowExportNames": ["useFavoritesContext"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/components/**/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["~/data/**", "~/app/**", "~/app"],
+                "message": "Les composants reçoivent leurs données par props ; seules les routes chargent les données."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/components/ui/**/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "~/data/**",
+                  "~/app/**",
+                  "~/app",
+                  "~/components/views/**",
+                  "~/contexts/**"
+                ],
+                "message": "Un composant d’interface dépend seulement de ses props : ni route, ni données, ni vue, ni contexte."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/contexts/**/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["~/data/**", "~/app/**", "~/app", "~/components/**"],
+                "message": "Un contexte ne dépend ni des routes, ni des données, ni des composants."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
