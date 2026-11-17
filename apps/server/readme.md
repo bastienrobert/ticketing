@@ -24,6 +24,25 @@ pnpm db:seed       # replace local events with 100 upcoming Shotgun events from 
 
 First run in dev: `pnpm db:migrate && pnpm db:seed`.
 
+## Auth
+
+Email + password accounts with [Better Auth](https://www.better-auth.com) (`src/auth.ts`), mounted on `/api/auth/*`, with the Expo plugin for the app. Its tables (`user`, `session`, `account`, `verification`) live in `src/db/schema.ts`. Requests need an `Origin` header (the app sends `ticketing://`).
+
+```text
+POST /api/auth/sign-up/email   { name, email, password }   → 200 · 400 · 422
+POST /api/auth/sign-in/email   { email, password }         → 200 · 401
+POST /api/auth/sign-out                                    → 200
+GET  /api/auth/get-session                                 → session or null
+```
+
+The base URL comes from each request (`src/auth.ts`), so there is nothing to set per environment. The secret is not committed:
+
+```bash
+cp .env.example .env                       # local, ignored by Git
+openssl rand -base64 32                     # set BETTER_AUTH_SECRET in .env to this value
+pnpm wrangler secret put BETTER_AUTH_SECRET # production, once
+```
+
 ## Deploy
 
 ```bash

@@ -15,6 +15,13 @@
       "when": 1794910691833,
       "tag": "0001_category_price",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1794918312954,
+      "tag": "0002_auth",
+      "breakpoints": true
     }
   ]
 }
