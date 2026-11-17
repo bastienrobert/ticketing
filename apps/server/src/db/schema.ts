@@ -10,5 +10,7 @@ export const events = sqliteTable('events', {
   venue: text(),
   address: text(),
   latitude: real(),
-  longitude: real()
+  longitude: real(),
+  category: text().notNull().default('Concert'),
+  price: real(),
 })

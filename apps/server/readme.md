@@ -56,4 +56,8 @@ pnpm wrangler d1 export DB --local --table events --no-schema --output seed.sql
 pnpm wrangler d1 execute DB --remote --file seed.sql && rm seed.sql
 ```
 
-Rows keep their local ids, so running it against a non-empty table fails on duplicate keys.
+Rows keep their local ids, so running it against a non-empty table fails on duplicate keys. To replace prod events (e.g. after adding columns), empty the table first:
+
+```bash
+pnpm wrangler d1 execute DB --remote --command "DELETE FROM events"
+```
