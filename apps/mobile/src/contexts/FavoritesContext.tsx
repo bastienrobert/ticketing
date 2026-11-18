@@ -27,7 +27,10 @@ interface FavoritesContextValue {
 
 const FavoritesContext = createContext<FavoritesContextValue | null>(null)
 
-function reduceFavorites(state: number[], action: FavoritesAction): number[] {
+export function reduceFavorites(
+  state: number[],
+  action: FavoritesAction,
+): number[] {
   switch (action.type) {
     case 'toggle': {
       const { eventId } = action.payload
