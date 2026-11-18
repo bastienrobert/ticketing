@@ -7,6 +7,7 @@ pnpm dev                        # Metro dev server
 pnpm ios | android              # development build: compile, install and open
 pnpm lint
 pnpm test                       # unit and component tests (Jest, Testing Library), in src/__tests__ mirroring src
+pnpm e2e                        # Maestro flows in e2e, see E2E tests
 pnpm exec expo install <pkg>    # always use this to add dependencies
 ```
 
@@ -30,3 +31,16 @@ Buying a ticket opens the Apple Pay sheet from a local native module: `modules/a
 Expo Go doesn't embed the project's own modules, so the button only shows in a development build.
 
 After a purchase, the event goes to the default calendar. iOS asks for write-only access on the first purchase; iOS reads the reason it shows from `src/data/messages/native/fr.json` (`locales` in `app.json`), translated at build time since the JS isn't running yet.
+
+## E2E tests
+
+[Maestro](https://maestro.dev) flows in `e2e/`, run on an installed Release build: the JS is embedded, so no Metro and no LogBox over the UI. Install the CLI with `brew install mobile-dev-inc/tap/maestro` (Java 17+).
+
+The flows create an account on each run, so `.env.local` must point to a local `apps/server` (`pnpm dev` there), and the Release build reads it at build time.
+
+```bash
+pnpm exec expo run:ios --configuration Release --device "iPhone 17"   # again after each change to the app
+pnpm e2e --device <udid>                                              # the simulator's id, from `xcrun simctl list devices booted`
+```
+
+Use a simulator you don't use for development: the flows clear its keychain and the app's data.

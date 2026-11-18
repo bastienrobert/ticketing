@@ -1,0 +1,45 @@
+# a favorite survives a restart: a new account adds the first event, then finds it again after relaunching
+appId: com.bastienrobert.ticketing
+---
+# the session lives in the keychain, which clearState keeps
+- clearKeychain
+- launchApp:
+    clearState: true
+# wait for the catalogue: a tap during the launch is lost
+- extendedWaitUntil:
+    visible: Ajouter aux favoris.*
+    timeout: 30000
+
+# favorites belong to an account: one new account per run
+- tapOn: Compte
+- tapOn: Adresse e-mail
+- inputText: ${'e2e-' + Date.now() + '@example.com'}
+- tapOn: Mot de passe
+- inputText: password-for-tests
+# the buttons stay above the keyboard: hideKeyboard would tap around, and could hit them
+- tapOn: Créer un compte
+# iOS offers to save the new password over the app, a moment after the sign-up
+- extendedWaitUntil:
+    visible: Plus tard
+    timeout: 10000
+    optional: true
+- tapOn:
+    text: Plus tard
+    optional: true
+- assertVisible: Se déconnecter
+
+- tapOn: Événements
+- tapOn:
+    text: Ajouter aux favoris.*
+    index: 0
+- tapOn: Favoris.*
+- assertVisible: Retirer des favoris.*
+
+# no clearState this time: the favorite comes back from the phone's database
+- stopApp
+- launchApp
+- extendedWaitUntil:
+    visible: Ajouter aux favoris.*
+    timeout: 30000
+- tapOn: Favoris.*
+- assertVisible: Retirer des favoris.*
