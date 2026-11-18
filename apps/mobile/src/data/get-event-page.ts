@@ -1,5 +1,7 @@
+import { eventsRepository } from '~/repositories/events.repository'
+import { favoritesRepository } from '~/repositories/favorites.repository'
+
 import { eventAdapter } from './adapters/events.adapters'
-import { fetchApi } from '~/lib/api'
 
 import type { EventPageData } from '~/app/events/[id]'
 
@@ -8,7 +10,10 @@ export async function getEventPage(
   eventId: number,
   signal: AbortSignal,
 ): Promise<EventPageData | null> {
-  const events = await fetchApi('/events', signal)
+  const favorite = favoritesRepository.find(eventId)
+  if (favorite) return eventAdapter(favorite)
+
+  const events = await eventsRepository.getAll(signal)
 
   if (!Array.isArray(events)) return null
 

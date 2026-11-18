@@ -1,5 +1,6 @@
 import { i18n } from '~/lib/i18n'
 
+import type { CataloguePageData } from '~/app/(tabs)'
 import type { EventPageData } from '~/app/events/[id]'
 import type { EventCardParams } from '~/components/ui/EventCard'
 
@@ -55,5 +56,15 @@ export function eventAdapter(event: EventRaw): EventPageData & EventCardParams {
     day: DAY_FORMAT.format(startsAt),
     month: MONTH_FORMAT.format(startsAt),
     price: getPriceLabel(event.price),
+  }
+}
+
+/** Present a list of events with the categories it contains, sorted for French. */
+export function catalogueAdapter(events: EventRaw[]): CataloguePageData {
+  return {
+    events: events.map(eventAdapter),
+    categories: [...new Set(events.map((event) => event.category))].sort(
+      new Intl.Collator('fr').compare,
+    ),
   }
 }

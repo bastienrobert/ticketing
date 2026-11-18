@@ -2,6 +2,8 @@ import { startTransition, useActionState } from 'react'
 
 import { Account } from '~/components/views/Account'
 
+import { useFavoritesContext } from '~/contexts/FavoritesContext'
+
 import { authClient } from '~/lib/auth'
 import { i18n } from '~/lib/i18n'
 
@@ -17,11 +19,16 @@ interface AccountSubmission {
 
 // statuses of Better Auth's email routes: 400 invalid input, 401 wrong credentials, 422 email taken
 function getErrorMessage(status: number) {
-  if (status === 400) return i18n.t('account.error.invalid_credentials')
-  if (status === 401) return i18n.t('account.error.wrong_credentials')
-  if (status === 422) return i18n.t('account.error.email_taken')
-
-  return i18n.t('account.error.network')
+  switch (status) {
+    case 400:
+      return i18n.t('account.error.invalid_credentials')
+    case 401:
+      return i18n.t('account.error.wrong_credentials')
+    case 422:
+      return i18n.t('account.error.email_taken')
+    default:
+      return i18n.t('account.error.network')
+  }
 }
 
 async function submitCredentials({ mode, credentials }: AccountSubmission) {
@@ -35,6 +42,7 @@ async function submitCredentials({ mode, credentials }: AccountSubmission) {
 
 export default function AccountPage() {
   const { data: session } = authClient.useSession()
+  const { clearFavorites } = useFavoritesContext()
 
   const [error, submit, submitting] = useActionState(
     async (_error: string | null, submission: AccountSubmission) => {
@@ -52,10 +60,9 @@ export default function AccountPage() {
     startTransition(() => submit({ mode, credentials }))
   }
 
-  // the Expo plugin purges the stored session before the request: offline, only the server
-  // revocation fails, and that session expires on its own
-  function onSignOut() {
-    authClient.signOut().catch(() => {})
+  async function onSignOut() {
+    await authClient.signOut().catch(() => {})
+    clearFavorites()
   }
 
   return (

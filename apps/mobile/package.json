@@ -7,6 +7,7 @@
   "dependencies": {
     "@better-auth/expo": "1.7.25",
     "better-auth": "1.7.25",
+    "drizzle-orm": "^0.45.4",
     "expo": "~58.0.25",
     "expo-constants": "~58.0.16",
     "expo-font": "~58.0.12",
@@ -16,6 +17,7 @@
     "expo-router": "~58.0.31",
     "expo-secure-store": "~58.0.3",
     "expo-splash-screen": "~58.0.14",
+    "expo-sqlite": "~58.0.17",
     "expo-status-bar": "~58.0.5",
     "expo-symbols": "~58.0.5",
     "expo-system-ui": "~58.0.7",
@@ -28,6 +30,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
+    "babel-plugin-inline-import": "^3.0.0",
+    "babel-preset-expo": "~58.0.25",
+    "drizzle-kit": "^0.31.11",
     "oxlint": "^1.93.0",
     "typescript": "~6.0.3"
   },
@@ -37,6 +42,7 @@
     "ios": "expo start --ios",
     "lint": "oxlint --deny-warnings && prettier --check .",
     "typecheck": "tsc --noEmit",
-    "build": "expo export --platform ios --platform android"
+    "build": "expo export --platform ios --platform android",
+    "db:generate": "drizzle-kit generate"
   }
 }

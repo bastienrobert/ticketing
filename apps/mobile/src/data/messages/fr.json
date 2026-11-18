@@ -33,6 +33,10 @@
       "title": "Aucun événement trouvé.",
       "description": "Essayez une autre recherche ou une autre catégorie.",
       "button": "Réinitialiser les filtres"
+    },
+    "offline": {
+      "title": "Vous êtes hors ligne.",
+      "description": "Le catalogue a besoin d’une connexion. Vos favoris restent disponibles dans l’onglet Favoris."
     }
   },
   "favorites": {
@@ -49,6 +53,15 @@
       "title": "Vous n’avez pas encore de favoris.",
       "description": "Touchez le cœur d’un événement pour le retrouver ici.",
       "button": "Explorer les événements"
+    },
+    "offline": "Vous êtes hors ligne : voici les favoris enregistrés sur ce téléphone.",
+    "sign_in": {
+      "title": "Connectez-vous",
+      "description": "Les favoris sont enregistrés sur votre compte : connectez-vous depuis l’onglet Compte."
+    },
+    "error": {
+      "title": "Favori non enregistré",
+      "description": "Vérifiez votre connexion, puis réessayez."
     }
   },
   "event": {

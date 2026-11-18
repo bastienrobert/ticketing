@@ -63,15 +63,6 @@ export function CatalogueResults({
   }
 
   function renderEmptyState() {
-    if (totalCount === 0) {
-      return (
-        <CatalogueMessage
-          title={i18n.t('catalogue.empty.title')}
-          description={i18n.t('catalogue.empty.description')}
-        />
-      )
-    }
-
     if (mode === 'favorites' && favoriteIds.length === 0) {
       return (
         <CatalogueMessage
@@ -81,6 +72,15 @@ export function CatalogueResults({
             label: i18n.t('favorites.empty.button'),
             onPress: onBrowsePress,
           }}
+        />
+      )
+    }
+
+    if (totalCount === 0) {
+      return (
+        <CatalogueMessage
+          title={i18n.t('catalogue.empty.title')}
+          description={i18n.t('catalogue.empty.description')}
         />
       )
     }

@@ -1,5 +1,6 @@
-import { eventAdapter } from './adapters/events.adapters'
-import { fetchApi } from '~/lib/api'
+import { eventsRepository } from '~/repositories/events.repository'
+
+import { catalogueAdapter } from './adapters/events.adapters'
 
 import type { CataloguePageData } from '~/app/(tabs)'
 
@@ -7,14 +8,9 @@ import type { CataloguePageData } from '~/app/(tabs)'
 export async function getCataloguePage(
   signal: AbortSignal,
 ): Promise<CataloguePageData | null> {
-  const events = await fetchApi('/events', signal)
+  const events = await eventsRepository.getAll(signal)
 
   if (!Array.isArray(events)) return null
 
-  return {
-    events: events.map(eventAdapter),
-    categories: [
-      ...new Set<string>(events.map((event) => event.category)),
-    ].sort(new Intl.Collator('fr').compare),
-  }
+  return catalogueAdapter(events)
 }
