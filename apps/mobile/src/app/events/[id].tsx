@@ -6,6 +6,7 @@ import {
 import { Suspense, use, useTransition, type ReactNode } from 'react'
 import {
   Alert,
+  Linking,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -23,6 +24,7 @@ import { useRequest } from '~/hooks/useRequest'
 
 import { getEventPage } from '~/data/get-event-page'
 import { applePay } from '~/lib/apple-pay'
+import { addToCalendar, type CalendarResult } from '~/lib/calendar'
 import { i18n } from '~/lib/i18n'
 
 import { COLORS } from '~/styles/theme'
@@ -34,6 +36,7 @@ export interface EventPageData {
   description: string
   venue: string
   address: string
+  startsAt: string
   date: string
   price: string
   amount: string | null
@@ -138,26 +141,32 @@ function EventPageContent({ page }: EventPageContentProps) {
     { label: i18n.t('event.price'), value: event.price },
   ]
 
-  const { title, amount } = event
+  const { title, description, startsAt, venue, address, amount } = event
 
   function onBuy() {
     if (!amount) return
 
     startBuying(async () => {
-      try {
-        const payment = await applePay.pay(title, amount)
-        if (!payment) return
+      const payment = await applePay.pay(title, amount).catch(() => null)
 
-        Alert.alert(
-          i18n.t('event.purchase.success.title'),
-          i18n.t('event.purchase.success.description', { title }),
-        )
-      } catch {
+      if (payment === null) {
         Alert.alert(
           i18n.t('event.purchase.error.title'),
           i18n.t('event.purchase.error.description'),
         )
+        return
       }
+
+      if (!payment) return
+
+      const calendar = await addToCalendar({
+        title,
+        description,
+        startsAt,
+        venue,
+        address,
+      }).catch(() => null)
+      alertPurchase(title, calendar)
     })
   }
 
@@ -206,6 +215,35 @@ function EventPageContent({ page }: EventPageContentProps) {
       )}
     </EventPageSheet>
   )
+}
+
+function alertPurchase(title: string, calendar: CalendarResult | null) {
+  const heading = i18n.t('event.purchase.success.title')
+  const description = i18n.t('event.purchase.success.description', { title })
+
+  switch (calendar) {
+    case 'added':
+      return Alert.alert(
+        heading,
+        `${description}\n\n${i18n.t('event.purchase.calendar.added')}`,
+      )
+    // refused for good: only the Settings can allow it now
+    case 'blocked':
+      return Alert.alert(
+        heading,
+        `${description}\n\n${i18n.t('event.purchase.calendar.blocked')}`,
+        [
+          { text: i18n.t('event.purchase.calendar.later'), style: 'cancel' },
+          {
+            text: i18n.t('event.purchase.calendar.settings'),
+            onPress: () => Linking.openSettings(),
+          },
+        ],
+      )
+    // just refused at the prompt: the choice is respected, without insisting
+    default:
+      return Alert.alert(heading, description)
+  }
 }
 
 // mirrors the content: category, title, description and the details card

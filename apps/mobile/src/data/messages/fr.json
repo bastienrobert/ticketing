@@ -81,6 +81,12 @@
         "title": "Billet acheté",
         "description": "Votre billet pour « %{title} » est réservé. Paiement simulé : rien n’a été débité."
       },
+      "calendar": {
+        "added": "L’événement est ajouté à votre calendrier.",
+        "blocked": "Pour ajouter vos billets à votre calendrier, autorisez l’accès dans les Réglages.",
+        "later": "Plus tard",
+        "settings": "Réglages"
+      },
       "error": {
         "title": "Paiement impossible",
         "description": "Apple Pay n’a pas pu s’ouvrir. Réessayez."

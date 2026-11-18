@@ -20,6 +20,9 @@
       },
       "predictiveBackGestureEnabled": false
     },
+    "locales": {
+      "fr": "./src/data/messages/native/fr.json"
+    },
     "plugins": [
       "expo-router",
       [
@@ -39,7 +42,13 @@
       "expo-font",
       "expo-secure-store",
       "expo-web-browser",
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "expo-calendar",
+        {
+          "writeOnlyAccess": true
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

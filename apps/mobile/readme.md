@@ -27,3 +27,5 @@ pnpm db:generate   # migration in src/db/migrations after editing the schema
 Buying a ticket opens the Apple Pay sheet from a local native module: `modules/apple-pay` (Swift and PassKit), autolinked by Expo. The payment is mocked: the module accepts the authorization after one second and nothing is charged.
 
 Expo Go doesn't embed the project's own modules, so the button only shows in a development build.
+
+After a purchase, the event goes to the default calendar. iOS asks for write-only access on the first purchase; iOS reads the reason it shows from `src/data/messages/native/fr.json` (`locales` in `app.json`), translated at build time since the JS isn't running yet.

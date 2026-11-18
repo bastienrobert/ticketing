@@ -1,0 +1,6 @@
+{
+  "ios": {
+    "NSCalendarsUsageDescription": "Les événements dont vous achetez un billet sont ajoutés à votre calendrier.",
+    "NSCalendarsWriteOnlyAccessUsageDescription": "Les événements dont vous achetez un billet sont ajoutés à votre calendrier."
+  }
+}

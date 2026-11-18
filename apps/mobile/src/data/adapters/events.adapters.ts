@@ -52,6 +52,7 @@ export function eventAdapter(event: EventRaw): EventPageData & EventCardParams {
     description: event.description ?? '',
     venue: event.venue ?? '',
     address: event.address ?? '',
+    startsAt: event.startsAt,
     date: DATE_FORMAT.format(startsAt),
     day: DAY_FORMAT.format(startsAt),
     month: MONTH_FORMAT.format(startsAt),
