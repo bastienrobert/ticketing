@@ -38,8 +38,8 @@
   },
   "scripts": {
     "dev": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "lint": "oxlint --deny-warnings && prettier --check .",
     "typecheck": "tsc --noEmit",
     "build": "expo export --platform ios --platform android",

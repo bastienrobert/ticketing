@@ -4,7 +4,7 @@ Expo app (SDK 58) using [Expo Router](https://docs.expo.dev/router/introduction)
 
 ```bash
 pnpm dev                        # Metro dev server
-pnpm ios | android | web        # start and open on a platform
+pnpm ios | android              # development build: compile, install and open
 pnpm lint
 pnpm exec expo install <pkg>    # always use this to add dependencies
 ```

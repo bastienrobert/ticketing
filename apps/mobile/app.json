@@ -8,6 +8,7 @@
     "scheme": "ticketing",
     "userInterfaceStyle": "light",
     "ios": {
+      "bundleIdentifier": "com.bastienrobert.ticketing",
       "icon": "./assets/expo.icon"
     },
     "android": {
