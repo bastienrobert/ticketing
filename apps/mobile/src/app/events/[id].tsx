@@ -1,10 +1,17 @@
-import { Suspense, use, type ReactNode } from 'react'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import {
   useLocalSearchParams,
   useRouter,
   type ErrorBoundaryProps,
 } from 'expo-router'
+import { Suspense, use, useTransition, type ReactNode } from 'react'
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { FavoriteButton } from '~/components/ui/FavoriteButton'
@@ -15,6 +22,7 @@ import { useFavoritesContext } from '~/contexts/FavoritesContext'
 import { useRequest } from '~/hooks/useRequest'
 
 import { getEventPage } from '~/data/get-event-page'
+import { applePay } from '~/lib/apple-pay'
 import { i18n } from '~/lib/i18n'
 
 import { COLORS } from '~/styles/theme'
@@ -28,6 +36,7 @@ export interface EventPageData {
   address: string
   date: string
   price: string
+  amount: string | null
 }
 
 export default function EventPage() {
@@ -104,6 +113,7 @@ interface EventPageContentProps {
 
 function EventPageContent({ page }: EventPageContentProps) {
   const { favoriteIds, toggleFavorite } = useFavoritesContext()
+  const [buying, startBuying] = useTransition()
   const event = use(page)
 
   // a redirect would replace the sheet with a second tabs screen, so the sheet stays open
@@ -127,6 +137,29 @@ function EventPageContent({ page }: EventPageContentProps) {
     { label: i18n.t('event.venue'), value: `${event.venue}\n${event.address}` },
     { label: i18n.t('event.price'), value: event.price },
   ]
+
+  const { title, amount } = event
+
+  function onBuy() {
+    if (!amount) return
+
+    startBuying(async () => {
+      try {
+        const payment = await applePay.pay(title, amount)
+        if (!payment) return
+
+        Alert.alert(
+          i18n.t('event.purchase.success.title'),
+          i18n.t('event.purchase.success.description', { title }),
+        )
+      } catch {
+        Alert.alert(
+          i18n.t('event.purchase.error.title'),
+          i18n.t('event.purchase.error.description'),
+        )
+      }
+    })
+  }
 
   const favoriteButton = (
     <FavoriteButton
@@ -158,6 +191,19 @@ function EventPageContent({ page }: EventPageContentProps) {
           })}
         </View>
       </ScrollView>
+
+      {amount && applePay.canMakePayments() && (
+        <View style={STYLES.footer}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ busy: buying }}
+            disabled={buying}
+            style={({ pressed }) => [STYLES.buy, pressed && STYLES.pressed]}
+            onPress={onBuy}>
+            <Text style={STYLES.buyLabel}>{i18n.t('event.buy')}</Text>
+          </Pressable>
+        </View>
+      )}
     </EventPageSheet>
   )
 }
@@ -267,6 +313,30 @@ const STYLES = StyleSheet.create({
     color: COLORS.text,
     fontSize: 16,
     lineHeight: 24,
+  },
+
+  footer: {
+    width: '100%',
+    maxWidth: 600,
+    alignSelf: 'center',
+    paddingHorizontal: 24,
+    paddingTop: 12,
+    paddingBottom: 8,
+  },
+
+  buy: {
+    minHeight: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    backgroundColor: COLORS.text,
+  },
+
+  buyLabel: {
+    color: COLORS.surface,
+    fontSize: 17,
+    lineHeight: 22,
+    fontWeight: '600',
   },
 
   retry: {

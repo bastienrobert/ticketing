@@ -75,6 +75,17 @@
     "free": "Gratuit",
     "price_from": "À partir de %{price}",
     "price_unknown": "Non communiqué",
+    "buy": "Acheter un billet",
+    "purchase": {
+      "success": {
+        "title": "Billet acheté",
+        "description": "Votre billet pour « %{title} » est réservé. Paiement simulé : rien n’a été débité."
+      },
+      "error": {
+        "title": "Paiement impossible",
+        "description": "Apple Pay n’a pas pu s’ouvrir. Réessayez."
+      }
+    },
     "not_found": {
       "title": "Événement introuvable.",
       "description": "Cet événement n’existe pas ou n’est plus disponible."

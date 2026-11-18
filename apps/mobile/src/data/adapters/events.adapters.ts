@@ -56,6 +56,7 @@ export function eventAdapter(event: EventRaw): EventPageData & EventCardParams {
     day: DAY_FORMAT.format(startsAt),
     month: MONTH_FORMAT.format(startsAt),
     price: getPriceLabel(event.price),
+    amount: event.price ? event.price.toFixed(2) : null,
   }
 }
 

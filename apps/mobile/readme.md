@@ -21,3 +21,9 @@ pnpm db:generate   # migration in src/db/migrations after editing the schema
 ```
 
 `babel.config.js` and `metro.config.js` exist only to bundle those `.sql` migrations.
+
+## Apple Pay
+
+Buying a ticket opens the Apple Pay sheet from a local native module: `modules/apple-pay` (Swift and PassKit), autolinked by Expo. The payment is mocked: the module accepts the authorization after one second and nothing is charged.
+
+Expo Go doesn't embed the project's own modules, so the button only shows in a development build.
