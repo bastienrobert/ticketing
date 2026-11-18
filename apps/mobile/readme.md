@@ -6,7 +6,7 @@ Expo app (SDK 58) using [Expo Router](https://docs.expo.dev/router/introduction)
 pnpm dev                        # Metro dev server
 pnpm ios | android              # development build: compile, install and open
 pnpm lint
-pnpm test                       # unit tests (Jest), in src/__tests__ mirroring src
+pnpm test                       # unit and component tests (Jest, Testing Library), in src/__tests__ mirroring src
 pnpm exec expo install <pkg>    # always use this to add dependencies
 ```
 
