@@ -1,6 +1,7 @@
 import {
   index,
   integer,
+  primaryKey,
   real,
   sqliteTable,
   text,
@@ -104,3 +105,17 @@ export const rateLimit = sqliteTable('rate_limit', {
   count: integer().notNull(),
   lastRequest: integer('last_request').notNull(),
 })
+
+// one row per favorite event of an account, deleted with the account or the event
+export const favorites = sqliteTable(
+  'favorites',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    eventId: integer('event_id')
+      .notNull()
+      .references(() => events.id, { onDelete: 'cascade' }),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.eventId] })],
+)

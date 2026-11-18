@@ -43,6 +43,16 @@ openssl rand -base64 32                     # set BETTER_AUTH_SECRET in .env to 
 pnpm wrangler secret put BETTER_AUTH_SECRET # production, once
 ```
 
+## Favorites
+
+Routes for the signed-in account (401 otherwise); the app sends its session cookie. PUT and DELETE are idempotent, so the app can replay a change made offline.
+
+```text
+GET    /favorites            → favorite events, like /events
+PUT    /favorites/:eventId   → 204 · 404 unknown event
+DELETE /favorites/:eventId   → 204
+```
+
 ## Deploy
 
 ```bash
