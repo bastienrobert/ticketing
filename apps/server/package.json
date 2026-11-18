@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test": "vitest run",
     "preview": "$npm_execpath run build && vite preview",
     "predeploy": "wrangler d1 migrations apply DB --remote",
     "deploy": "wrangler deploy",
@@ -23,6 +24,7 @@
     "@cloudflare/vite-plugin": "^1.44.0",
     "drizzle-kit": "^0.31.11",
     "vite": "^8.1.4",
+    "vitest": "^5.1.0",
     "wrangler": "^4.110.0"
   }
 }

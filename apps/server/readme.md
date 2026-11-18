@@ -8,6 +8,7 @@ pnpm build
 pnpm preview       # build, then serve with the Workers runtime
 pnpm run deploy    # remote D1 migrations, then wrangler deploy; build first (`pnpm deploy` is a pnpm built-in)
 pnpm cf-typegen    # regenerate CloudflareBindings after editing wrangler.jsonc
+pnpm test          # Vitest, against an in-memory D1 migrated from ./migrations
 ```
 
 Type bindings with `new Hono<{ Bindings: CloudflareBindings }>()`.
