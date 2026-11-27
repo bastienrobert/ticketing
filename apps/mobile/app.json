@@ -9,7 +9,13 @@
     "userInterfaceStyle": "light",
     "ios": {
       "bundleIdentifier": "com.bastienrobert.ticketing",
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "infoPlist": {
+        "ExpoLocalization_supportsRTL": false,
+        "CFBundleLocalizations": [
+          "fr"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +24,11 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
+      ]
     },
     "locales": {
       "fr": "./src/data/messages/native/fr.json"
@@ -28,7 +38,9 @@
       [
         "expo-localization",
         {
-          "supportedLocales": ["fr"],
+          "supportedLocales": [
+            "fr"
+          ],
           "supportsRTL": false
         }
       ],
@@ -53,6 +65,18 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "supportsRTL": false,
+      "eas": {
+        "projectId": "687595dc-f95c-449f-af0a-1295700fce02"
+      }
+    },
+    "owner": "bastienrobert"
   }
 }
